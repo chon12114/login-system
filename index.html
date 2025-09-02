@@ -4,24 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>หน้าล็อกอิน</title>
-    <link rel="stylesheet" href="css/chinnn.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="e1">
+<body>
     <div class="login-container">
-        <form class="login-form" action="chin1.html" method="get">
+        <form action="login.php" method="post">
             <h2>เข้าสู่ระบบ</h2>
             <div class="input-group">
-                <label for="username">ชื่อผู้ใช้งาน</label> 
-                <input type="text" id="username" name="username" placeholder="กรอกชื่อผู้ใช้งานของคุณ" required>
+                <label for="username">ชื่อผู้ใช้:</label>
+                <input type="text" id="username" name="username" required>
             </div>
             <div class="input-group">
-                <label for="password">รหัสผ่าน</label>
-                <input type="password" id="password" name="password" placeholder="กรอกรหัสผ่าน" required>
+                <label for="password">รหัสผ่าน:</label>
+                <input type="password" id="password" name="password" required>
             </div>
-            <button class="e2"type="submit">ล็อกอิน</button>
-            <div class="extra-links">
-                <a href="#">ลืมรหัสผ่าน?</a>
-            </div>
+            <button type="submit">ล็อกอิน</button>
         </form>
+    </div>
 </body>
 </html>
