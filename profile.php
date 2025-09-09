@@ -43,7 +43,6 @@ if ($user === null) {
 <body>
     <div class="login-container">
         <h2>โปรไฟล์ของฉัน</h2>
-        <p id="success-message" class="success-text"></p>
         <div style="text-align: left; line-height: 2;">
             <p><strong>ID:</strong> <?php echo htmlspecialchars($user['id']); ?></p>
             <p><strong>ชื่อผู้ใช้:</strong> <?php echo htmlspecialchars($user['username']); ?></p>
