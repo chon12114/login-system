@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($password === $user['password']) { // นี่คือการเปรียบเทียบแบบง่าย
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $user['username'];
-            header("location: welcome.php");
+            header("location: /035-project3/chin.html");
             exit;
         } else {
             echo "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
