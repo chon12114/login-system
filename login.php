@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// ตั้งค่าการเชื่อมต่อฐานข้อมูล
 $servername = "localhost";
 $db_username = "root";
 $db_password = "";
@@ -24,19 +23,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
-        // ตรวจสอบรหัสผ่านที่ถูก hash (เรายังไม่ได้เพิ่ม user ที่ hash password)
-        // สำหรับตอนนี้ เราจะเปรียบเทียบรหัสผ่านตรงๆ ก่อน
-        // แต่ถ้าจะใช้งานจริง ต้องใช้ password_verify()
-        if ($password === $user['password']) { // นี่คือการเปรียบเทียบแบบง่าย
+        
+        if (password_verify($password, $user['password'])) {
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $user['username'];
             header("location: /035-project3/chin1.html");
             exit;
         } else {
-            echo "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+            // รหัสผ่านไม่ถูกต้อง
+            header("location: index.html?error=invalid_credentials");
+            exit();
         }
     } else {
-        echo "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+        // ไม่พบผู้ใช้
+        header("location: index.html?error=invalid_credentials");
+        exit();
     }
     $stmt->close();
 }

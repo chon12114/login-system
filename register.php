@@ -20,7 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // --- 3. ตรวจสอบข้อมูล ---
     // เช็คว่ารหัสผ่านตรงกันหรือไม่
     if ($password !== $password_confirmation) {
-        die("รหัสผ่านไม่ตรงกัน กรุณาลองใหม่อีกครั้ง");
+        header("location: register.html?error=password_mismatch");
+        exit(); // หยุดการทำงานทันที
     }
 
     // เช็คว่ามีชื่อผู้ใช้นี้ในระบบแล้วหรือยัง
@@ -30,11 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        die("ชื่อผู้ใช้นี้มีคนใช้แล้ว กรุณาเลือกชื่ออื่น");
+        header("location: register.html?error=username_taken");
+        exit(); // หยุดการทำงานทันที
     }
     $stmt->close();
 
-    // --- 4. เข้ารหัสผ่าน (สำคัญมาก) ---
+    // --- 4. เข้ารหัสผ่าน ---
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // --- 5. บันทึกข้อมูลลงฐานข้อมูล ---
@@ -42,9 +44,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ss", $username, $hashed_password);
 
     if ($stmt->execute()) {
-        echo "สมัครสมาชิกสำเร็จ! <a href='index.html'>กลับไปหน้าเข้าสู่ระบบ</a>";
+        // หากสำเร็จ ให้ส่งไปหน้าล็อกอินพร้อมข้อความแจ้งเตือน
+        header("location: index.html?success=registration_complete");
+        exit();
     } else {
-        echo "เกิดข้อผิดพลาดในการสมัคร: " . $stmt->error;
+        // หากเกิดข้อผิดพลาดที่ไม่คาดคิด
+        header("location: register.html?error=database_error");
+        exit();
     }
 
     $stmt->close();

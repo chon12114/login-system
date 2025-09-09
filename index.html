@@ -10,6 +10,10 @@
     <div class="login-container">
         <form action="login.php" method="post">
             <h2>เข้าสู่ระบบ</h2>
+
+            <p id="error-message" class="error-text"></p>
+            <p id="success-message" class="success-text"></p>
+
             <div class="input-group">
                 <label for="username">ชื่อผู้ใช้:</label>
                 <input type="text" id="username" name="username" required>
@@ -22,5 +26,21 @@
             <p style="margin-top: 1rem;">ยังไม่มีบัญชี? <a href="register.html">สมัครสมาชิกที่นี่</a></p>
         </form>
     </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        const success = urlParams.get('success');
+        const errorMessageElement = document.getElementById('error-message');
+        const successMessageElement = document.getElementById('success-message');
+
+        if (error === 'invalid_credentials') {
+            errorMessageElement.textContent = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+        }
+
+        if (success === 'registration_complete') {
+            successMessageElement.textContent = 'สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบ';
+        }
+    </script>
 </body>
 </html>

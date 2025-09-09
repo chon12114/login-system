@@ -46,3 +46,16 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+/* --- โค้ดสำหรับข้อความแจ้งเตือน --- */
+.error-text {
+    color: #dc3545; /* สีแดง */
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.success-text {
+    color: #28a745; /* สีเขียว */
+    margin-bottom: 1rem;
+    text-align: center;
+}

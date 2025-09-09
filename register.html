@@ -10,6 +10,9 @@
     <div class="login-container">
         <form action="register.php" method="post">
             <h2>สมัครสมาชิก</h2>
+            
+            <p id="error-message" class="error-text"></p>
+
             <div class="input-group">
                 <label for="username">ชื่อผู้ใช้:</label>
                 <input type="text" id="username" name="username" required>
@@ -26,5 +29,30 @@
             <p style="margin-top: 1rem;">มีบัญชีอยู่แล้ว? <a href="index.html">เข้าสู่ระบบที่นี่</a></p>
         </form>
     </div>
+
+    <script>
+        // ใช้ JavaScript เพื่ออ่านค่าจาก URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        const errorMessageElement = document.getElementById('error-message');
+
+        if (error) {
+            let message = '';
+            switch (error) {
+                case 'password_mismatch':
+                    message = 'รหัสผ่านและการยืนยันรหัสผ่านไม่ตรงกัน';
+                    break;
+                case 'username_taken':
+                    message = 'ชื่อผู้ใช้นี้มีคนใช้แล้ว';
+                    break;
+                case 'database_error':
+                    message = 'เกิดข้อผิดพลาดกับฐานข้อมูล ลองใหม่อีกครั้ง';
+                    break;
+                default:
+                    message = 'เกิดข้อผิดพลาดไม่ทราบสาเหตุ';
+            }
+            errorMessageElement.textContent = message;
+        }
+    </script>
 </body>
 </html>
