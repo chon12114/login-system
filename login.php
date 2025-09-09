@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $user['password'])) {
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $user['username'];
-            header("location: /035-project3/chin1.html");
+            header("location: /035-project3/chin1.php");
             exit;
         } else {
             // รหัสผ่านไม่ถูกต้อง
